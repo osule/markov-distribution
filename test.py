@@ -1,6 +1,6 @@
 import unittest
 
-from markov import to_nparray, meanNd, totalNd, shift_arrayNd, sum_and_mean, X1Xn, XXNd, X0X1Nd, XX
+from markov import to_nparray, meanNd, totalNd, shift_arrayNd, sum_and_mean, X1Xn, XXNd, X0X1Nd, XX, B1, B2, SD, R1, R2, RandomGenerator, ZScore, Sum, MarkovModel
 
 class MarkovTest(unittest.TestCase):
     def setUp(self):
@@ -16,7 +16,6 @@ class MarkovTest(unittest.TestCase):
             (108, 148),
             (82, 155)
         ])
-
 
     def test_mean_Nd(self):
         mean_Xi, mean_Xj = meanNd(self.X)
@@ -61,6 +60,22 @@ class MarkovTest(unittest.TestCase):
         product = XX(X0)
 
         self.assertListEqual([21609, 17689, 19600, 14400, 15625, 27889, 21904], product.tolist())
+
+    def test_B1(self):
+        X0 = B1(self.X)
+        self.assertEqual(-0.15925566791337595, X0)
+
+    def test_B2(self):
+        X1 = B2(self.X)
+        SD(self.X)
+        self.assertEqual(-0.2656837236195472, X1)
+
+    def test_SD(self):
+        X0 = X0 = shift_arrayNd(self.X)
+        X1 = SD(X0)
+        MarkovModel(self.X)
+        self.assertEqual(14.716366011058149, X1)
+
 
 if __name__ == '__main__':
     unittest.main()
